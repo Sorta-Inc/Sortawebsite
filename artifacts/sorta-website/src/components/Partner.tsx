@@ -24,7 +24,8 @@ import {
 } from '@/components/ui/select';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xljrprpa';
+// Same-origin Cloudflare Pages Function — see functions/api/contact.js
+const CONTACT_ENDPOINT = '/api/contact';
 
 type FormStatus = 'idle' | 'success' | 'error';
 
@@ -62,12 +63,9 @@ export default function Partner() {
     setSubmitting(true);
     setFormStatus('idle');
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
       if (!res.ok) throw new Error('server error');
