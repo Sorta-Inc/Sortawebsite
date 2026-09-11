@@ -6,20 +6,6 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-const rawPort = process.env.PORT;
-
-if (!rawPort) {
-  throw new Error(
-    "PORT environment variable is required but was not provided.",
-  );
-}
-
-const port = Number(rawPort);
-
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
-}
-
 const basePath = process.env.BASE_PATH;
 
 if (!basePath) {
@@ -134,51 +120,70 @@ function perSectionOgPlugin(base: string): Plugin {
   };
 }
 
-export default defineConfig({
-  base: basePath,
-  plugins: [
-    react(),
-    tailwindcss(),
-    runtimeErrorOverlay(),
-    perSectionOgPlugin(basePath),
-    ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
-      ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
-            m.cartographer({
-              root: path.resolve(import.meta.dirname, ".."),
-            }),
-          ),
-          await import("@replit/vite-plugin-dev-banner").then((m) =>
-            m.devBanner(),
-          ),
-        ]
-      : []),
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+export default defineConfig(async ({ command }) => {
+  // PORT only matters for `vite` (dev) and `vite preview` — both report as
+  // command "serve" — never for `vite build`, which doesn't bind a port.
+  // Static hosts (e.g. Cloudflare Pages) build without setting PORT at all.
+  let port: number | undefined;
+  if (command === "serve") {
+    const rawPort = process.env.PORT;
+    if (!rawPort) {
+      throw new Error(
+        "PORT environment variable is required but was not provided.",
+      );
+    }
+    port = Number(rawPort);
+    if (Number.isNaN(port) || port <= 0) {
+      throw new Error(`Invalid PORT value: "${rawPort}"`);
+    }
+  }
+
+  return {
+    base: basePath,
+    plugins: [
+      react(),
+      tailwindcss(),
+      runtimeErrorOverlay(),
+      perSectionOgPlugin(basePath),
+      ...(process.env.NODE_ENV !== "production" &&
+      process.env.REPL_ID !== undefined
+        ? [
+            await import("@replit/vite-plugin-cartographer").then((m) =>
+              m.cartographer({
+                root: path.resolve(import.meta.dirname, ".."),
+              }),
+            ),
+            await import("@replit/vite-plugin-dev-banner").then((m) =>
+              m.devBanner(),
+            ),
+          ]
+        : []),
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve(import.meta.dirname, "src"),
+        "@assets": path.resolve(import.meta.dirname, "..", "..", "attached_assets"),
+      },
+      dedupe: ["react", "react-dom"],
     },
-    dedupe: ["react", "react-dom"],
-  },
-  root: path.resolve(import.meta.dirname),
-  build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true,
-  },
-  server: {
-    port,
-    host: "0.0.0.0",
-    allowedHosts: true,
-    fs: {
-      strict: true,
-      deny: ["**/.*"],
+    root: path.resolve(import.meta.dirname),
+    build: {
+      outDir: path.resolve(import.meta.dirname, "dist/public"),
+      emptyOutDir: true,
     },
-  },
-  preview: {
-    port,
-    host: "0.0.0.0",
-    allowedHosts: true,
-  },
+    server: {
+      port,
+      host: "0.0.0.0",
+      allowedHosts: true,
+      fs: {
+        strict: true,
+        deny: ["**/.*"],
+      },
+    },
+    preview: {
+      port,
+      host: "0.0.0.0",
+      allowedHosts: true,
+    },
+  };
 });
