@@ -45,9 +45,9 @@ export default function Team() {
     {
       nameNode:
         language === 'jp' ? (
-          <><ruby>杉澤<rt>スギサワ</rt></ruby> <ruby>大輔<rt>ダイスケ</rt></ruby></>
+          <>フラビオ</>
         ) : (
-          'Daisuke Sugisawa'
+          'Flavio'
         ),
       roleKey: 'member4Role',
       bioKey: 'member4Bio',

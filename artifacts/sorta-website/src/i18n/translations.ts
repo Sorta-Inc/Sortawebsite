@@ -312,8 +312,8 @@ export const translations = {
     },
     member4Role: { en: 'Systems Architect', jp: 'システムアーキテクト' },
     member4Bio: {
-      en: 'Systems engineer specializing in distributed systems, real-time communications, embedded systems, and AI. Designs and builds end-to-end systems spanning cloud, edge, and embedded devices to enable intelligent perception and control.',
-      jp: '分散システム、リアルタイム通信、組み込みシステム、AIを専門とするシステムエンジニア。クラウドからエッジ、組み込みデバイスまでを横断するシステム設計を通じて、Sortaの認識・制御技術の研究開発をリード。',
+      en: 'Embedded systems engineer specializing in secure, connected devices, from low-level microcontroller firmware to cloud services. Has shipped BLE firmware with SHA-256 link security and device-to-AWS pipelines, and previously supported blockchain infrastructure at Bitfinex. Leads Sorta’s firmware and device-to-cloud architecture.',
+      jp: 'マイコンのファームウェアからクラウドまで、セキュアなコネクテッドデバイスを専門とする組み込みエンジニア。BLEファームウェアやAWS連携パイプラインの開発実績に加え、Bitfinexでブロックチェーン基盤を支援。Sortaのファームウェアとデバイス・クラウド間アーキテクチャをリード。',
     },
     hiring: {
       en: 'We are recruiting across engineering, operations, and partnerships. Interested?',
