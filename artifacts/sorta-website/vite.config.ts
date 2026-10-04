@@ -6,6 +6,7 @@ import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+// Required for dev and build. Use "/" when serving from a domain root.
 const basePath = process.env.BASE_PATH;
 
 if (!basePath) {
