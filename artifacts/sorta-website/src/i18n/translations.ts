@@ -312,8 +312,8 @@ export const translations = {
     },
     member4Role: { en: 'Systems Architect', jp: 'システムアーキテクト' },
     member4Bio: {
-      en: 'Embedded systems engineer specializing in secure, connected devices, from low-level microcontroller firmware to cloud services. Has shipped BLE firmware with SHA-256 link security and device-to-AWS pipelines, and previously supported blockchain infrastructure at Bitfinex. Leads Sorta’s firmware and device-to-cloud architecture.',
-      jp: 'マイコンのファームウェアからクラウドまで、セキュアなコネクテッドデバイスを専門とする組み込みエンジニア。BLEファームウェアやAWS連携パイプラインの開発実績に加え、Bitfinexでブロックチェーン基盤を支援。Sortaのファームウェアとデバイス・クラウド間アーキテクチャをリード。',
+      en: 'Embedded engineer specializing in secure, connected devices, from microcontroller firmware to the cloud. Brings IoT and motion-control experience, plus blockchain infrastructure work at Bitfinex. Leads Sorta\u2019s firmware and systems architecture.',
+      jp: 'マイコンからクラウドまで、セキュアなコネクテッドデバイスを専門とする組み込みエンジニア。IoTやBitfinexでのブロックチェーン基盤の経験を活かし、Sortaのファームウェアとシステム設計をリード。',
     },
     hiring: {
       en: 'We are recruiting across engineering, operations, and partnerships. Interested?',
